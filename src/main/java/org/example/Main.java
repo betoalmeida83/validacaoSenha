@@ -13,57 +13,64 @@ public class Main {
             System.out.println("Digite a senha: ");
             String senha = scanner.nextLine();
 
-            StringBuilder erros = new StringBuilder();
+            String resultadoValidacao = validarSenha(senha);
 
-            if (senha.length() < 8) {
-                erros.append("A senha deve ter no mínimo 8 caracteres\n");
-            }
-
-            boolean temLetraMaiuscula = false;
-            for (char c : senha.toCharArray()) {
-                if (Character.isUpperCase(c)) {
-                    temLetraMaiuscula = true;
-                    break;
-                }
-            }
-            if (!temLetraMaiuscula) {
-                erros.append("A senha deve conter pelo menos uma letra maiúscula\n");
-            }
-
-            boolean temNumero = false;
-            for (char c : senha.toCharArray()) {
-                if (Character.isDigit(c)) {
-                    temNumero = true;
-                    break;
-                }
-            }
-            if (!temNumero) {
-                erros.append("A senha deve conter pelo menos um número\n");
-            }
-
-            boolean temCaractereEspecial = false;
-            String caractereEspecial = "!@#$%^&*()_-+=[]{}|:~,.<>/?'´`";
-            for (char c : senha.toCharArray()) {
-                if (caractereEspecial.indexOf(c) != -1) {
-                    temCaractereEspecial = true;
-                    break;
-                }
-            }
-            if (!temCaractereEspecial) {
-                erros.append("A senha deve conter pelo menos um caractere especial\n");
-            }
-
-            if (erros.length() == 0) {
+            if (resultadoValidacao.isEmpty()) {
                 System.out.println("Senha cadastrada!\n");
                 break;
             } else {
                 System.out.println("Senha inválida devido aos seguintes erros: \n");
-                System.out.println(erros);
+                System.out.println(resultadoValidacao);
             }
 
         }
 
         scanner.close();
+    }
+
+    public static String validarSenha(String senha) {
+
+        StringBuilder erros = new StringBuilder();
+
+        if (senha.length() < 8) {
+            erros.append("A senha deve ter no mínimo 8 caracteres\n");
+        }
+
+        boolean temLetraMaiuscula = false;
+        for (char c : senha.toCharArray()) {
+            if (Character.isUpperCase(c)) {
+                temLetraMaiuscula = true;
+                break;
+            }
+        }
+        if (!temLetraMaiuscula) {
+            erros.append("A senha deve conter pelo menos uma letra maiúscula\n");
+        }
+
+        boolean temNumero = false;
+        for (char c : senha.toCharArray()) {
+            if (Character.isDigit(c)) {
+                temNumero = true;
+                break;
+            }
+        }
+        if (!temNumero) {
+            erros.append("A senha deve conter pelo menos um número\n");
+        }
+
+        boolean temCaractereEspecial = false;
+        String caractereEspecial = "!@#$%^&*()_-+=[]{}|:~,.<>/?'´`";
+        for (char c : senha.toCharArray()) {
+            if (caractereEspecial.indexOf(c) != -1) {
+                temCaractereEspecial = true;
+                break;
+            }
+        }
+        if (!temCaractereEspecial) {
+            erros.append("A senha deve conter pelo menos um caractere especial\n");
+        }
+
+        return erros.toString();
     }
 
 }
