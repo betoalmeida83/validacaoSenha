@@ -7,7 +7,6 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
 
-
         while (true) {
 
             System.out.println("Digite a senha: ");
@@ -26,6 +25,7 @@ public class Main {
         }
 
         scanner.close();
+
     }
 
     public static String validarSenha(String senha) {
@@ -39,7 +39,6 @@ public class Main {
         if (!temLetraMaiuscula(senha)) {
             erros.append("- A senha deve conter pelo menos uma letra maiúscula\n");
         }
-
 
         if (!temNumero(senha)) {
             erros.append("- A senha deve conter pelo menos um número\n");
@@ -57,31 +56,15 @@ public class Main {
     }
 
     public static boolean temLetraMaiuscula(String senha) {
-        for (char c : senha.toCharArray()) {
-            if (Character.isUpperCase(c)) {
-                return true;
-            }
-        }
-        return false;
+        return senha.matches(".*[A-Z].*");
     }
 
     public static boolean temNumero(String senha) {
-        for (char c : senha.toCharArray()) {
-            if (Character.isDigit(c)) {
-                return true;
-            }
-        }
-        return false;
+        return senha.matches(".*[0-9].*");
     }
 
     public static boolean temCaractereEspecial(String senha) {
-        String caractereEspecial = "!@#$%^&*()_-+=[]{}|:~,.<>/?'´`";
-        for (char c : senha.toCharArray()) {
-            if (caractereEspecial.indexOf(c) != -1) {
-                return true;
-            }
-        }
-        return false;
+        return senha.matches(".*[!@#$%^&*()_\\-+=\\[\\]{}|:~,.<>/?'´`].*");
     }
 
 }
