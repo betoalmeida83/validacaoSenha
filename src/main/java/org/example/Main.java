@@ -16,10 +16,10 @@ public class Main {
             String resultadoValidacao = validarSenha(senha);
 
             if (resultadoValidacao.isEmpty()) {
-                System.out.println("Senha cadastrada!\n");
+                System.out.println("\nSenha cadastrada!\n");
                 break;
             } else {
-                System.out.println("Senha inválida devido aos seguintes erros: \n");
+                System.out.println("Senha inválida devido aos seguintes erros:");
                 System.out.println(resultadoValidacao);
             }
 
@@ -32,45 +32,56 @@ public class Main {
 
         StringBuilder erros = new StringBuilder();
 
-        if (senha.length() < 8) {
-            erros.append("A senha deve ter no mínimo 8 caracteres\n");
+        if (!temTamanhoValido(senha)) {
+            erros.append("- A senha deve ter no mínimo 8 caracteres\n");
         }
 
-        boolean temLetraMaiuscula = false;
-        for (char c : senha.toCharArray()) {
-            if (Character.isUpperCase(c)) {
-                temLetraMaiuscula = true;
-                break;
-            }
-        }
-        if (!temLetraMaiuscula) {
-            erros.append("A senha deve conter pelo menos uma letra maiúscula\n");
+        if (!temLetraMaiuscula(senha)) {
+            erros.append("- A senha deve conter pelo menos uma letra maiúscula\n");
         }
 
-        boolean temNumero = false;
-        for (char c : senha.toCharArray()) {
-            if (Character.isDigit(c)) {
-                temNumero = true;
-                break;
-            }
-        }
-        if (!temNumero) {
-            erros.append("A senha deve conter pelo menos um número\n");
+
+        if (!temNumero(senha)) {
+            erros.append("- A senha deve conter pelo menos um número\n");
         }
 
-        boolean temCaractereEspecial = false;
-        String caractereEspecial = "!@#$%^&*()_-+=[]{}|:~,.<>/?'´`";
-        for (char c : senha.toCharArray()) {
-            if (caractereEspecial.indexOf(c) != -1) {
-                temCaractereEspecial = true;
-                break;
-            }
-        }
-        if (!temCaractereEspecial) {
-            erros.append("A senha deve conter pelo menos um caractere especial\n");
+        if (!temCaractereEspecial(senha)) {
+            erros.append("- A senha deve conter pelo menos um caractere especial\n");
         }
 
         return erros.toString();
+    }
+
+    public static boolean temTamanhoValido(String senha) {
+        return senha.length() >= 8;
+    }
+
+    public static boolean temLetraMaiuscula(String senha) {
+        for (char c : senha.toCharArray()) {
+            if (Character.isUpperCase(c)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean temNumero(String senha) {
+        for (char c : senha.toCharArray()) {
+            if (Character.isDigit(c)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean temCaractereEspecial(String senha) {
+        String caractereEspecial = "!@#$%^&*()_-+=[]{}|:~,.<>/?'´`";
+        for (char c : senha.toCharArray()) {
+            if (caractereEspecial.indexOf(c) != -1) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }
